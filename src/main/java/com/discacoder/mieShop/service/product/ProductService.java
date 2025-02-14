@@ -6,6 +6,7 @@ import com.discacoder.mieShop.model.Product;
 import com.discacoder.mieShop.repository.CategoryRepository;
 import com.discacoder.mieShop.repository.ProductRepository;
 import com.discacoder.mieShop.request.AddProductRequest;
+import com.discacoder.mieShop.request.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -48,7 +49,23 @@ public class ProductService implements IProductService{
                 ()-> {throw new ProductNotFoundException("Product not found!");});
     }
 
-    public void updateProduct(Product product, Long productId) {
+    public Product updateProduct(ProductUpdateRequest request, Long productId) {
+        return productRepository.findById(productId)
+                .map(existingProduct ->updateExistingProduct(existingProduct, request))
+                .map(productRepository::save)
+                .orElseThrow(()->new ProductNotFoundException("Product not found!"));
+
+    }
+    private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request){
+        existingProduct.setName(request.getName());
+        existingProduct.setDescription(request.getDescription());
+        existingProduct.setBrand(request.getBrand());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setInventory(request.getInventory());
+
+        Category category = categoryRepository.findByName(request.getCategory().getName());
+        existingProduct.setCategory(category);
+        return existingProduct;
 
     }
 

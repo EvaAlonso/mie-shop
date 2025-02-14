@@ -2,6 +2,7 @@ package com.discacoder.mieShop.service.product;
 
 import com.discacoder.mieShop.model.Product;
 import com.discacoder.mieShop.request.AddProductRequest;
+import com.discacoder.mieShop.request.ProductUpdateRequest;
 import org.aspectj.weaver.ast.Literal;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface IProductService {
     Product addProduct(AddProductRequest product);
     Product getProductById(Long id);
     void deleteProductById(Long id);
-    void updateProduct(Product product, Long productId);
+    Product updateProduct(ProductUpdateRequest product, Long productId);
     List<Product> getAllProducts();
     List<Product> getProductsByCategory(String category);
     List<Product> getProductsByBrand(String brand);
