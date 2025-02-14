@@ -1,12 +1,15 @@
 package com.discacoder.mieShop.service.image;
 
+import com.discacoder.mieShop.dto.ImageDto;
 import com.discacoder.mieShop.model.Image;
 import com.discacoder.mieShop.model.Product;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface IImageService {
     Image getImageById(Long id);
     void deleteImageById(Long id);
-    Image saveImage(MultipartFile file, Long productId);
+    List<ImageDto> saveImages(Long productId, List<MultipartFile> files);
     void updateImage(MultipartFile file, Long imageId);
 }
